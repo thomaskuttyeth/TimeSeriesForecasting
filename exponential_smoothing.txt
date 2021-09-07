@@ -1,0 +1,28 @@
+simple exponential smoothing 
+===========================================
+The main idea is forecasting future values using a weighted average of all previous values in the series 
+The main use is the time series forecasting with no trend and no seasonal variations. 
+
+Three types of exponential smoothing
+    * simple - for no trend or seasonality 
+    * holt's exponential smoothing for series with trend no seasonality 
+    * winters exponential smoothing - for series with trend and seasonality 
+
+simple - ses 
+===================
+makes the assumption that the seies contains only level(lt) 
+forcast = estimated level at most recent time point 
+
+l_t = alpha * y_t + (1-alpha) l_t-1 
+alpha = smoothing constant 
+
+weights decrease exponentially into the past .... 
+
+usually we take 0.1, 0.2 
+minimize rmse or map of training 
+
+beauty of ses 
+======================================
+forcasts use all previous values 
+but we only need to store the most recent forecast and its error. 
+Unlike MA, gives more weight to more recent observations 
