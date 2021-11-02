@@ -1,0 +1,96 @@
+---
+title: "Time series introduction"
+output: html_document
+---
+
+# Time series introduction
+
+```{r}
+y = ts(c(123,39,78,52,110), start = 2012)
+y
+```
+
+```{r}
+quarterly_data = c(12,234,123,23,23,12,42,32)
+y2 = ts(quarterly_data, start = 2002,frequency = 4)
+y2
+```
+
+```{r}
+library(fpp2)
+```
+
+```{r}
+autoplot(melsyd[,'Economy.Class'])+ 
+  ggtitle('economy class passengers: Melbourne')+ 
+  xlab("year")+
+  ylab("Thousands")+theme_minimal()
+  
+```
+
+```{python}
+print('thmaskutty')
+import numpy as np 
+np.array([1,2,3,4])
+```
+
+```{r}
+par(mfrow=c(2,1))
+plot(arima.sim(list(order=c(1,0,0), ar=.9), n=100), ylab="x",
+main=(expression(AR(1)~~~phi==+.9)))
+plot(arima.sim(list(order=c(1,0,0), ar=-.9), n=100), ylab="x",
+main=(expression(AR(1)~~~phi==-.9)))
+```
+
+```{r}
+set.seed(123)
+
+# Simulate 250 observations from the described AR(1) model
+ar1_sim <- arima.sim(model = list(ar = 0.75), n = 250, mean = 0, sd = 1) + 100
+
+# Generate the theoretical ACF with ten lags
+acf_ar1_model <- ARMAacf(ar = 0.5, lag.max = 10)
+
+# Split plotting window in three rows
+par(mfrow = c(3, 1))
+
+# First plot: The simulated observations
+plot(ar1_sim, type = "l", main = "AR(1) Process: mu = 0.05, phi = 0.5", xlab = "time", ylab = "y(t)")
+abline(h = 0)
+
+# Second plot: Theoretical AFC
+plot(1:10, acf_ar1_model[2:11], type = "h", col = "blue", main = "theoretical ACF")
+
+# Third plot: Sample AFC
+tmp <- acf(ar1_sim, lag.max = 10, main = "Sample ACF")
+
+
+# Reset plotting window to default
+par(mfrow = c(1, 1))
+```
+```{r}
+# Generate the theoretical ACF with ten lags
+acf_ar1_model <- ARMAacf(ar = 0.5, lag.max = 10, pacf = TRUE)
+
+par(mfrow = c(3, 1))
+# First plot: The simulated observations
+plot(ar1_sim, type = "l", main = "AR(1) Process: mu = 0.05, phi = 0.5", xlab = "time", ylab = "y(t)")
+abline(h = 0)
+
+# Second plot: Theoretical AFC
+plot(1:10, acf_ar1_model[2:11], type = "h", col = "blue", main = "theoretical ACF")
+
+# Third plot: Sample AFC
+tmp <- pacf(ar1_sim, lag.max = 10, main = "Sample ACF")
+
+
+# Reset plotting window to default
+par(mfrow = c(1, 1))
+```
+
+
+
+
+
+
+
